@@ -17,7 +17,7 @@ const SignUp = async(req,res)=>{
 
         const isAlreadyRegistered = await userModel.findOne({email:email})        
         if(isAlreadyRegistered){
-            return res.json({
+            return res.status(400).json({
                 status:false,
                 message:'Your Email Id is already registered'
             })
