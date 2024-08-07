@@ -3,9 +3,12 @@ const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const useRoutes = require("./routes/useroutes")
 const cookieParser = require("cookie-parser")
+const cors = require('cors');
+
 
 dotenv.config()
 const app = express();
+app.use(cors()); // Enable CORS for all routes
 
 mongoose.connect(process.env.MongoURL)
 .then(()=>{
@@ -13,6 +16,7 @@ mongoose.connect(process.env.MongoURL)
 }).catch((e)=>{
     console.log(`error while connecting to DB ${e}`);
 })
+
 app.use(cookieParser())
 app.use(express.json())
 
