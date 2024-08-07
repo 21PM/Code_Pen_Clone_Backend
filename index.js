@@ -2,7 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const useRoutes = require("./routes/useroutes")
-
+const cookieParser = require("cookie-parser")
 
 dotenv.config()
 const app = express();
@@ -13,6 +13,7 @@ mongoose.connect(process.env.MongoURL)
 }).catch((e)=>{
     console.log(`error while connecting to DB ${e}`);
 })
+app.use(cookieParser())
 app.use(express.json())
 
 

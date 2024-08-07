@@ -27,7 +27,7 @@ const SignUp = async(req,res)=>{
         console.log(addNewUser);
         
         return res.json({
-            message:"Signup api"
+            message:"Your account has been created"
         })
 
     }catch(e){
