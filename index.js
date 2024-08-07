@@ -7,7 +7,7 @@ const useRoutes = require("./routes/useroutes")
 dotenv.config()
 const app = express();
 
-mongoose.connect("mongodb://localhost:27017/CodePen")
+mongoose.connect(process.env.MongoURL)
 .then(()=>{
     console.log("DB has been connected");
 }).catch((e)=>{

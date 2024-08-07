@@ -79,26 +79,20 @@ const Login = async (req,res)=>{
         }
 
         const token = jwt.sign(tokenPayload,process.env.JWTSECRETKEY)
-        
         res.cookie('CPToken', token, { httpOnly: true, secure: false, maxAge: 3600000 // Cookie expires in 1 hour
         });
-
         return res.json({
             message:"Login api"
         })
 
     }catch(e){
         console.log(e);
-        
-
         return res.status(400).json({
             status:false,
             message:"Unable to Login",
             error:e
         })
     }
-
-
 }
 
 
