@@ -34,7 +34,7 @@ const SignUp = async(req,res)=>{
         if (e.name === 'ValidationError') {
             return res.status(400).json({
                 status:false,
-                error: e.message
+                message: e.message
              });
         }
         console.log(e);
@@ -42,7 +42,7 @@ const SignUp = async(req,res)=>{
         return res.status(500).json({
             status:false,
             message:`Server error, please try again later`,
-            error:e
+            error:e.message
         })
     }
     
@@ -73,16 +73,20 @@ const Login = async (req,res)=>{
                 message:"Invalid Email id or Password"
             })
         }
-
         const tokenPayload = {
             userId:isOurUser._id,
         }
 
-        const token = jwt.sign(tokenPayload,process.env.JWTSECRETKEY)
-        res.cookie('CPToken', token, { httpOnly: true, secure: false, maxAge: 3600000 // Cookie expires in 1 hour
+        const token = jwt.sign(tokenPayload,process.env.JWTSECRETKEY,{expiresIn:"1h"})
+        res.cookie('CPToken', token, { httpOnly: false, secure: false,sameSite:'lax',
+            expires: new Date(Date.now() + 1 * 60 * 60 * 1000) , 
+            path: '/'
         });
-        return res.json({
-            message:"Login api"
+        return res.json({   
+            status:true,
+            message:"Your are sucessfully logged in",
+            token:token,
+            user:isOurUser
         })
 
     }catch(e){
