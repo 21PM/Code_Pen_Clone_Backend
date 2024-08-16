@@ -3,10 +3,10 @@ const userModel = require("../model/usermodel")
 
 const authMiddleWare = async (req,res,next)=>{
 
-
-    const BearerToken = req.headers.authorization
+    
+    const BearerToken = req.headers.authorization    
     if(!BearerToken){
-        return res.json({
+        return res.status(401).json({
             status:false,
             message:"Invalid token please login again"
         })
@@ -19,7 +19,7 @@ const authMiddleWare = async (req,res,next)=>{
 
         const currentUser = await userModel.findById(decoded.userId)
         if(!currentUser){
-            return res.json({
+            return res.status(404).json({
                 status:false,
                 message:'User do not exist' 
             })
@@ -29,7 +29,7 @@ const authMiddleWare = async (req,res,next)=>{
         next()
 
     }catch(e){
-        return res.json({
+        return res.status(404).json({
             status:true,
             message:"Invaid Token"
         })

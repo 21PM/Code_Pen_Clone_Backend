@@ -30,6 +30,11 @@ const workSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         required:true,
         ref: "users",
+    },
+    postedByUserName:{
+        type:String,
+        required:true,
+        ref: "users",
     }
 })
 

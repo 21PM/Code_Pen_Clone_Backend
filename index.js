@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const useRoutes = require("./routes/useroutes")
 const workRoutes = require("./routes/workRoutes")
+const followingRoutes = require('./routes/FollowingRoutes')
 const cookieParser = require("cookie-parser")
 const cors = require('cors');
 
@@ -10,7 +11,7 @@ dotenv.config()
 const app = express();
 
 
-mongoose.connect(process.env.MongoURL)
+mongoose.connect("mongodb://localhost:27017/codePen")
 .then(()=>{
     console.log("DB has been connected");
 }).catch((e)=>{
@@ -35,7 +36,7 @@ app.use(express.json())
 
 app.use(useRoutes)
 app.use(workRoutes)
-
+app.use(followingRoutes)
 
 
 app.listen(10000,()=>{

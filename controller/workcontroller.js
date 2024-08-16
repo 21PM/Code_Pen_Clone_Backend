@@ -35,7 +35,8 @@ const addWork = async (req,res)=>{
 
     const {html,css,javascript,output,title} = req.body;
 
-    const userId = req.currentUser._id       
+    const userId = req.currentUser._id  
+    const userName = req.currentUser.name     
 
     const CompleteWorkData = {
         html:html,
@@ -43,9 +44,11 @@ const addWork = async (req,res)=>{
         javascript:javascript,
         output:output,
         title:title,
-        postedByUser:userId
+        postedByUser:userId,
+        postedByUserName:userName
     }
     try{
+
         const SaveWork = await workModel.create(CompleteWorkData)
 
         if(!SaveWork){
@@ -227,13 +230,40 @@ const TrendingWork = async (req,res)=>{
  
 }
 
+
+const searchTrendingWork = async (req,res)=>{
+
+    const searchedQuery = req.query.searchedValue
+        console.log(searchedQuery);
+        
+
+    try{
+
+    const SearchedResults = await workModel.find({title:new RegExp(searchedQuery,'i')})
+        return res.json({
+            status:true,
+            message:"Search Trending APi",
+            result:SearchedResults
+        })
+    }catch(e){
+        return res.json({
+            status:false,
+            message:"Something went wrong",
+            error:e
+        })
+    }
+
+        
+}
+
 const workController = {
     myWork,
     addWork,
     deleteWorK,
     editWork,
     searchWork,
-    TrendingWork
+    TrendingWork,
+    searchTrendingWork
 }
 
 

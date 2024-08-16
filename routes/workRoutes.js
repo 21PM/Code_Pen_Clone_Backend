@@ -9,6 +9,7 @@ router.post("/delete-work/:workId",authMiddleWare,workController.deleteWorK)
 router.post("/edit-work/:workId",authMiddleWare,workController.editWork)
 router.get("/search-my-work",authMiddleWare,workController.searchWork)
 router.get("/trending-work",workController.TrendingWork)
+router.get("/search-trending-work",workController.searchTrendingWork)
 
 
 module.exports = router
