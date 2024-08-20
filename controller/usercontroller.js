@@ -82,6 +82,13 @@ const Login = async (req,res)=>{
             expires: new Date(Date.now() + 1 * 60 * 60 * 1000) , 
             path: '/'
         });
+
+        const addTokenInUser = await userModel.findOneAndUpdate({email},{
+            $set:{
+                token: token 
+            }
+        })
+
         return res.json({   
             status:true,
             message:"Your are sucessfully logged in",
@@ -99,10 +106,44 @@ const Login = async (req,res)=>{
     }
 }
 
+const Logout = async (req,res)=>{
+
+    try{
+
+        const removeTokenFromUser = await userModel.findByIdAndUpdate(req.currentUser._id,{
+            $set:{
+                token:""
+            }
+        })
+
+        if(!removeTokenFromUser){
+            return res.status(401).json({
+                status:false,
+                message:`Something went wrong please try again`
+            })
+        }
+
+        return res.status(200).json({
+            status:true,
+            message:"You are sucessfully logged out"
+        })
+
+    }catch(e){
+
+        return res.status(500).json({
+            status:true,
+            message:"Unable to logout something went wrong",
+            error:e
+        })
+    }
+
+
+}
 
 const userController = {
     SignUp,
-    Login
+    Login,
+    Logout
 }
 
 module.exports = userController

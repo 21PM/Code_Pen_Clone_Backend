@@ -4,6 +4,7 @@ const userModel = require("../model/usermodel")
 const authMiddleWare = async (req,res,next)=>{
 
     
+    
     const BearerToken = req.headers.authorization    
     if(!BearerToken){
         return res.status(401).json({
@@ -11,7 +12,7 @@ const authMiddleWare = async (req,res,next)=>{
             message:"Invalid token please login again"
         })
     }
-
+    
     const token  = BearerToken.split(" ")[1];
     
     try{
@@ -24,6 +25,14 @@ const authMiddleWare = async (req,res,next)=>{
                 message:'User do not exist' 
             })
         }   
+
+        if(currentUser.token === ""){
+            return res.status(404).json({
+                status:false,
+                message:'Please login again session forcefully expired' 
+            })
+        }
+        
             req.currentUser = currentUser
             
         next()

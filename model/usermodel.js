@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
         type:[mongoose.Types.ObjectId],
         ref:"users",
         default:[]
+    },
+    token:{
+        type:String,
+        required:false,
+
     }
 },
 {
