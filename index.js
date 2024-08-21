@@ -19,7 +19,7 @@ mongoose.connect(process.env.MongoURL)
 })
 
 app.use(cors({
-    origin: 'https://code-pen-clone-frontend.vercel.app/', // Update with your frontend domain
+    origin: 'https://code-pen-clone-frontend.vercel.app', // Update with your frontend domain
     credentials: true,
 }));
 
