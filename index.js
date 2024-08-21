@@ -23,13 +23,13 @@ app.use(cors({
     credentials: true,
 }));
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', req.headers.origin); // Allow all origins
-//     res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
-//     res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE'); // Allowed methods
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Allowed headers
-//     next();
-// });
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin); // Allow all origins
+    res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE'); // Allowed methods
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Allowed headers
+    next();
+});
 app.use(cookieParser())
 app.use(express.json())
 
