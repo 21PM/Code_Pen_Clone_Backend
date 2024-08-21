@@ -18,26 +18,11 @@ mongoose.connect(process.env.MongoURL)
     console.log(`error while connecting to DB ${e}`);
 })
 
-// app.use(cors({
-//     origin: 'https://code-pen-clone-frontend.vercel.app/', // Update with your frontend domain
-//     credentials: true,
-// }));
+app.use(cors({
+    origin: 'https://code-pen-clone-frontend.vercel.app/', // Update with your frontend domain
+    credentials: true,
+}));
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', req.headers.origin); // Allow all origins
-//     res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
-//     res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE'); // Allowed methods
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Allowed headers
-//     next();
-// });
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        callback(null, true); // Allow all origins
-    },
-    credentials: true // Include credentials
-};
-app.use(cors(corsOptions)); // Apply CORS middleware with options
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', req.headers.origin); // Allow all origins
     res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
@@ -45,6 +30,21 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Allowed headers
     next();
 });
+
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//         callback(null, true); // Allow all origins
+//     },
+//     credentials: true // Include credentials
+// };
+// app.use(cors(corsOptions)); // Apply CORS middleware with options
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', req.headers.origin); // Allow all origins
+//     res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+//     res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE'); // Allowed methods
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Allowed headers
+//     next();
+// });
 
 
 app.use(cookieParser())

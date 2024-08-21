@@ -78,9 +78,9 @@ const Login = async (req,res)=>{
         }
 
         const token = jwt.sign(tokenPayload,process.env.JWTSECRETKEY,{expiresIn:"1h"})
-        res.cookie('CPToken', token, { httpOnly: false, secure: false,sameSite:'lax',
+        res.cookie('CPToken', token, { httpOnly: true, secure: true,sameSite:'None',
             expires: new Date(Date.now() + 1 * 60 * 60 * 1000) , 
-            path: '/'
+            // path: '/'
         });
 
         const addTokenInUser = await userModel.findOneAndUpdate({email},{
