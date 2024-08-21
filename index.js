@@ -11,7 +11,7 @@ dotenv.config()
 const app = express();
 
 
-mongoose.connect("mongodb://localhost:27017/codePen")
+mongoose.connect(process.env.MongoURL)
 .then(()=>{
     console.log("DB has been connected");
 }).catch((e)=>{
@@ -19,7 +19,7 @@ mongoose.connect("mongodb://localhost:27017/codePen")
 })
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Update with your frontend domain
+    origin: 'https://code-pen-clone-frontend.vercel.app/', // Update with your frontend domain
     credentials: true,
 }));
 
